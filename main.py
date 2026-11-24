@@ -23,6 +23,9 @@ def main():
     if "\t" in LINE:
         print("entry must not contain tabs", file=sys.stderr)
         return 1
+    if LINE != LINE.strip():
+        print("entry must not have leading or trailing whitespace", file=sys.stderr)
+        return 1
     if not LINE.strip():
         print("entry must not be only whitespace", file=sys.stderr)
         return 1
