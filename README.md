@@ -6,15 +6,15 @@
 
 A one-sentence startup pitch for a [make.fun](https://make.fun) bounty entry by [@dizellacapital](https://make.fun/r/qxacafna) — a business idea that sounds like a joke until the money shows up.
 
-## The pitch
+## The pitch (v2)
 
-> **We sell pothole naming rights for $20 a month, and the city fixes the sponsored ones first, because even asphalt answers to advertising.**
+> **At 6 a.m. on Route 9, Mrs. Okafor paid $20 to name the pothole that ate her tire, and the city patched it by noon, because a sponsored hole jumps the queue.**
 
-Potholes are the one billboard every driver is forced to look at. Sponsors pay a small monthly fee to put their name on one, and the city — which already has a repair backlog — patches the sponsored craters first, because a named pothole is a pothole with a budget behind it. Ridiculous at first glance; a real market the second you think about who pays and why.
+At dawn on Route 9, Mrs. Okafor buys the name of the pothole that ate her tire for $20 — and the city patches it before lunch. The joke is the product; the business is the queue. A pothole with a sponsor behind it is a pothole with a budget behind it, so it gets fixed before the anonymous ones. Ridiculous at first glance; a real market the second you see who pays and why.
 
 ## How it works
 
-`main.py` (stdlib only) writes the pitch to `MAKEFUN_OUTPUT_DIR/entry.txt` (fallback `/output`), validates it is a single line of 1–200 characters with no tabs, and verifies the write by reading it back. The entry file is exactly 136 bytes, with no trailing newline.
+`main.py` (stdlib only) writes the pitch to `MAKEFUN_OUTPUT_DIR/entry.txt` (fallback `/output`), validates it is a single line of 1–200 characters with no tabs and sentence-final punctuation, and verifies the write by reading it back. The entry file is exactly 156 bytes, with no trailing newline.
 
 ```sh
 python3 main.py

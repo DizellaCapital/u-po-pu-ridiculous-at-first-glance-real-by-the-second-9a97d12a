@@ -1,44 +1,47 @@
-"""Ridiculous at First Glance, Real by the Second — entry program.
+"""Ridiculous at First Glance, Real by the Second — entry program (v2).
 
-Writes a single-sentence startup pitch to MAKEFUN_OUTPUT_DIR/entry.txt:
-pothole naming rights, sold to sponsors for $20 a month, with the city
-fixing the sponsored potholes first — because even asphalt answers to
-advertising. One line, 136 characters, no trailing newline. Stdlib only.
+Writes a single-sentence startup pitch to MAKEFUN_OUTPUT_DIR/entry.txt.
+The pitch is a scene, not a quip: at 6 a.m. on Route 9, Mrs. Okafor pays
+$20 to name the pothole that ate her tire, and the city patches it by
+noon — because a sponsored hole jumps the queue. One line, 156
+characters, no trailing newline. Stdlib only.
 """
 
 import os
 import sys
 
-LINE = "We sell pothole naming rights for $20 a month, and the city fixes the sponsored ones first, because even asphalt answers to advertising."
+PITCH = (
+    "At 6 a.m. on Route 9, Mrs. Okafor paid $20 to name the pothole "
+    "that ate her tire, and the city patched it by noon, because a "
+    "sponsored hole jumps the queue."
+)
+
+
+def fail(message):
+    print(f"invalid entry: {message}", file=sys.stderr)
+    return 1
 
 
 def main():
-    length = len(LINE)
-    if length < 1 or length > 200:
-        print(f"entry must be 1-200 characters, got {length}", file=sys.stderr)
-        return 1
-    if "\n" in LINE or "\r" in LINE:
-        print("entry must be a single line", file=sys.stderr)
-        return 1
-    if "\t" in LINE:
-        print("entry must not contain tabs", file=sys.stderr)
-        return 1
-    if LINE != LINE.strip():
-        print("entry must not have leading or trailing whitespace", file=sys.stderr)
-        return 1
-    if not LINE.strip():
-        print("entry must not be only whitespace", file=sys.stderr)
-        return 1
+    if len(PITCH) < 1 or len(PITCH) > 200:
+        return fail(f"must be 1-200 characters, got {len(PITCH)}")
+    if "\n" in PITCH or "\r" in PITCH:
+        return fail("must be a single line")
+    if "\t" in PITCH:
+        return fail("must not contain tabs")
+    if PITCH != PITCH.strip() or not PITCH.strip():
+        return fail("must not have leading/trailing whitespace or be blank")
+    if PITCH[-1] not in ".!?":
+        return fail("must end with sentence-final punctuation")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="") as handle:
-        handle.write(LINE)
+        handle.write(PITCH)
     with open(path, "r", encoding="utf-8", newline="") as handle:
         written = handle.read()
-    if written != LINE:
-        print("read-back mismatch", file=sys.stderr)
-        return 1
+    if written != PITCH:
+        return fail("read-back mismatch")
     return 0
 
 
